@@ -18,7 +18,7 @@ class Cart:
     def item_amount(self, amount=1):
 
         if amount == 1:
-            self.driver.find_element(By.CSS_SELECTOR, "a[href='/Order/Checkout']").click()
+            self.go_to_checkout()
         else:
             for _ in range(amount - 1):
                 increase_button = WebDriverWait(self.driver, 3).until(
@@ -26,8 +26,15 @@ class Cart:
                 ) 
                 increase_button.click()
             
-            buy_now_button = WebDriverWait(self.driver, 3).until(
-                EC.element_to_be_clickable((By.CSS_SELECTOR, "a[href='/Order/Checkout']"))
-            )
-            buy_now_button.click()
+            self.go_to_checkout()   
         
+
+    def go_to_checkout(self):
+        buy_now_button = WebDriverWait(self.driver, 3).until(
+            EC.element_to_be_clickable((By.CSS_SELECTOR, "a[href='/Order/Checkout']"))
+        )
+        buy_now_button.click()
+        
+        WebDriverWait(self.driver, 5).until(
+            EC.url_contains("/Order/Checkout")
+        )

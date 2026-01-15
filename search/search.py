@@ -16,3 +16,6 @@ class Search:
         WebDriverWait(self.driver, 5).until(
             EC.url_contains("/Products/ProductsByBrand?q")
         )
+    
+    def has_results(self):
+        return len(self.driver.find_elements(By.ID, "search-result")) > 0
