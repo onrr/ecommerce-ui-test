@@ -5,7 +5,6 @@ from selenium.webdriver.support import expected_conditions as EC
 class Search:
     def __init__(self, driver):
         self.driver = driver
-    
 
     # Fill in the search form and submit
     def search_form(self, search_query):
